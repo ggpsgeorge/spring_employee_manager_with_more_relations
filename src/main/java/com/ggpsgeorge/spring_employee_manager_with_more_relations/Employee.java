@@ -2,6 +2,8 @@ package com.ggpsgeorge.spring_employee_manager_with_more_relations;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,7 +26,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "employee")
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employee_id")
     Long id;
 
@@ -35,6 +37,7 @@ public class Employee {
     String email;
 
     @Column(name = "employee_birth_date", nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd")
     Date birthDate;
 
     @Column(name = "employee_position")
@@ -43,5 +46,9 @@ public class Employee {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "employee_address", referencedColumnName = "address_id")
     Address address;
+
+    public void registerAddress(Address address) {
+        this.address = address;
+    }
 
 }

@@ -12,4 +12,7 @@ public class AddressService {
         return addressRepository.save(address);
     }
 
+    public Address finAddress(Long address_id) {
+        return addressRepository.findById(address_id).get();
+    }
 }

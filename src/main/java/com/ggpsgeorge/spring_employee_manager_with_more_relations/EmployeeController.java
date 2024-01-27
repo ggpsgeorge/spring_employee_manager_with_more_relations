@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class EmployeeController {
 
     @Autowired EmployeeService employeeService;
+    @Autowired AddressService addressService;
 
     @PostMapping("/add")
     public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
@@ -33,13 +34,15 @@ public class EmployeeController {
         return ResponseEntity.ok().body(employeeService.findAllEmployees());
     }
 
-    @PutMapping("/{employee_id}/register_address")
+    @PutMapping("/{employee_id}/register_address/{address_id}")
     public ResponseEntity<Employee> registerAddress(
         @PathVariable Long employee_id,
-        @RequestBody Address address
+        @PathVariable Long address_id
     ) {
         Employee persistedEmployee = employeeService.findEmployee(employee_id);
-        persistedEmployee.registerAddress(address);
+        Address persistedAddress = addressService.finAddress(address_id);
+        
+        persistedEmployee.registerAddress(persistedAddress);
         employeeService.saveEmployee(persistedEmployee);
 
         return ResponseEntity.ok().body(employeeService.findEmployee(employee_id));

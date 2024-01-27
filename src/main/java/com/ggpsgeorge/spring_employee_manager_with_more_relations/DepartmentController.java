@@ -10,19 +10,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/api/v1/addresses")
-public class AddressController {
+@RequestMapping("/api/v1/departments")
+public class DepartmentController {
     
-    @Autowired AddressService addressService;
+    @Autowired DepartmentService departmentService;
 
     @PostMapping("/add")
-    public ResponseEntity<Address> addAddress(@RequestBody Address address){
-        return ResponseEntity.ok().body(addressService.saveAddress(address));
+    public ResponseEntity<Department> addDepartment(@RequestBody Department department) {
+        return ResponseEntity.ok().body(departmentService.saveDepartment(department));
     }
 
-    @GetMapping("/{address_id}")
-    public ResponseEntity<Address> getAddress(@PathVariable Long address_id){
-        return ResponseEntity.ok().body(addressService.finAddress(address_id));
+    @GetMapping("/{department_id}")
+    public ResponseEntity<Department> getDepartment(@PathVariable Long department_id) {
+        return ResponseEntity.ok().body(departmentService.findDepartment(department_id));
     }
 
 }

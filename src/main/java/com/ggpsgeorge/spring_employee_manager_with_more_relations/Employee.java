@@ -3,7 +3,6 @@ package com.ggpsgeorge.spring_employee_manager_with_more_relations;
 import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

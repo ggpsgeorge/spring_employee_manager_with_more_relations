@@ -18,6 +18,7 @@ public class EmployeeController {
 
     @Autowired EmployeeService employeeService;
     @Autowired AddressService addressService;
+    @Autowired DepartmentService departmentService;
 
     @PostMapping("/add")
     public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
@@ -42,11 +43,26 @@ public class EmployeeController {
         Employee persistedEmployee = employeeService.findEmployee(employee_id);
         Address persistedAddress = addressService.finAddress(address_id);
         
-        persistedEmployee.registerAddress(persistedAddress);
+        persistedEmployee.setAddress(persistedAddress);
         employeeService.saveEmployee(persistedEmployee);
 
         return ResponseEntity.ok().body(employeeService.findEmployee(employee_id));
     }
 
+    @PutMapping("/{employee_id}/register_department/{department_id}")
+    public ResponseEntity<Employee> registerDepartment(
+        @PathVariable Long employee_id,
+        @PathVariable Long department_id
+    ) {
+        Employee persistedEmployee = employeeService.findEmployee(employee_id);
+        Department persistedDepartment = departmentService.findDepartment(department_id);
+
+        persistedEmployee.setDepartment(persistedDepartment);
+
+        employeeService.saveEmployee(persistedEmployee);
+
+        return ResponseEntity.ok().body(employeeService.findEmployee(employee_id));
+
+    }
 
 }

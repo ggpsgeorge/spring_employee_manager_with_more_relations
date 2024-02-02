@@ -1,6 +1,7 @@
 package com.ggpsgeorge.spring_employee_manager_with_more_relations;
 
 import java.sql.Date;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -11,6 +12,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -51,5 +54,13 @@ public class Employee {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "employee_department", referencedColumnName = "department_id")
     Department department;
+
+    @ManyToMany
+    @JoinTable(
+        name = "employee_working_tasks",
+        joinColumns = @JoinColumn(name = "task_id"),
+        inverseJoinColumns = @JoinColumn(name = "employee_id")
+    )
+    Set<Task> working_tasks;    
 
 }

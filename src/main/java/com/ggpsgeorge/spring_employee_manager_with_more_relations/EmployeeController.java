@@ -19,6 +19,7 @@ public class EmployeeController {
     @Autowired EmployeeService employeeService;
     @Autowired AddressService addressService;
     @Autowired DepartmentService departmentService;
+    @Autowired TaskService taskService;
 
     @PostMapping("/add")
     public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
@@ -63,6 +64,20 @@ public class EmployeeController {
         
         return ResponseEntity.ok().body(employeeService.findEmployee(employee_id));
 
+    }
+
+    @PutMapping("/{employee_id}/give_task/{task_id}")
+    public ResponseEntity<Employee> giveTask(
+        @PathVariable Long employee_id,
+        @PathVariable Long task_id
+    ) {
+        Employee persistedEmployee = employeeService.findEmployee(employee_id);
+        Task persistedTask = taskService.findTask(task_id);
+
+        persistedEmployee.tasks.add(persistedTask);
+        employeeService.saveEmployee(persistedEmployee);
+
+        return ResponseEntity.ok().body(employeeService.findEmployee(employee_id));
     }
 
 }

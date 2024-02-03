@@ -1,7 +1,7 @@
 package com.ggpsgeorge.spring_employee_manager_with_more_relations;
 
 import java.sql.Date;
-import java.util.Set;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -57,10 +57,10 @@ public class Employee {
 
     @ManyToMany
     @JoinTable(
-        name = "employee_working_tasks",
+        name = "employee_tasks",
         joinColumns = @JoinColumn(name = "task_id"),
         inverseJoinColumns = @JoinColumn(name = "employee_id")
     )
-    Set<Task> working_tasks;    
+    List<Task> tasks;    
 
 }

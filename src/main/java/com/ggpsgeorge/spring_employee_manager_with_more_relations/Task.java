@@ -1,6 +1,6 @@
 package com.ggpsgeorge.spring_employee_manager_with_more_relations;
 
-import java.util.Set;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -35,6 +35,6 @@ public class Task {
     String period;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "working_tasks")
-    Set<Employee> working_employees;
+    @ManyToMany(mappedBy = "tasks")
+    List<Employee> employees;
 }
